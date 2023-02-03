@@ -3,8 +3,11 @@ package com.example.jeff.cajavademo.Infrastructure.Controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +24,7 @@ public class UserController {
         this.userUseCase = userUseCase;
     }
 
-    @PostMapping("/createUser")
+    @PutMapping("/createUser")
     public ResponseEntity<Void> createUser(@RequestBody UserDTO user) {
         userUseCase.createUser(user);
 
@@ -33,5 +36,26 @@ public class UserController {
         var users = userUseCase.getAllUsers();
 
         return ResponseEntity.ok().body(users);
+    }
+
+    @PutMapping("/updateUser")
+    public ResponseEntity<Void> updateUser(@RequestBody UserDTO user) {
+        userUseCase.updateUser(user);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/deleteUser/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
+        userUseCase.deleteUser(id);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/getUserById/{id}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable String id) {
+        var user = userUseCase.getUserById(id);
+
+        return ResponseEntity.ok().body(user);
     }
 }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+// @EqualsAndHashCode
 @Builder
 public class UserDTO {
     private String id;

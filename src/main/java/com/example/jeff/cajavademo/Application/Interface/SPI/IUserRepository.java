@@ -10,4 +10,10 @@ public interface IUserRepository {
     public Voidy createUser(UserDTO user);
 
     public List<UserDTO> getAllUsers();
+
+    public UserDTO getUserById(String id);
+
+    public Voidy updateUser(UserDTO user);
+
+    public Voidy deleteUser(String id);
 }

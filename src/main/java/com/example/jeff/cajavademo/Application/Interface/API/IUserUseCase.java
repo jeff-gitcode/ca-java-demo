@@ -5,15 +5,17 @@ import java.util.Optional;
 
 import com.example.jeff.cajavademo.Domain.UserDTO;
 
+import an.awesome.pipelinr.Voidy;
+
 public interface IUserUseCase {
-    void createUser(UserDTO user);
+    public Voidy createUser(UserDTO user);
 
-    void updateUser(String id, UserDTO user);
+    public List<UserDTO> getAllUsers();
 
-    void deleteUser(String id);
+    public UserDTO getUserById(String id);
 
-    Optional<UserDTO> getUser(String id);
+    public Voidy updateUser(UserDTO user);
 
-    List<UserDTO> getAllUsers();
+    public Voidy deleteUser(String id);
 
 }

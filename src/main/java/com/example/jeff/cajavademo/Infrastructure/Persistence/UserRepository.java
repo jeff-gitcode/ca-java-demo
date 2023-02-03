@@ -18,14 +18,33 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public Voidy createUser(UserDTO user) {
-        // TODO Auto-generated method stub
-        return null;
+        users.add(user);
+
+        return new Voidy();
     }
 
     @Override
     public List<UserDTO> getAllUsers() {
-        // TODO Auto-generated method stub
         users = Collections.singletonList(new UserDTO("1", "Jeff", "Doe", "abc", "123"));
         return users;
+    }
+
+    @Override
+    public UserDTO getUserById(String id) {
+        var user = users.stream().filter(u -> u.getId().equals(id)).findFirst();
+        return user.orElse(null);
+    }
+
+    @Override
+    public Voidy updateUser(UserDTO user) {
+        users.stream().filter(u -> u.getId().equals(user.getId())).findFirst()
+                .ifPresent(u -> u = user);
+        return new Voidy();
+    }
+
+    @Override
+    public Voidy deleteUser(String id) {
+        users.removeIf(u -> u.getId().equals(id));
+        return new Voidy();
     }
 }

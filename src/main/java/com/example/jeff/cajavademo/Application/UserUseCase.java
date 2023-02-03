@@ -8,39 +8,39 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.jeff.cajavademo.Application.Cqrs.CreateUserCommand;
+import com.example.jeff.cajavademo.Application.Cqrs.DeleteUserCommand;
 import com.example.jeff.cajavademo.Application.Cqrs.GetAllUsersQuery;
+import com.example.jeff.cajavademo.Application.Cqrs.GetUserByIdQuery;
+import com.example.jeff.cajavademo.Application.Cqrs.UpdateUserCommand;
 import com.example.jeff.cajavademo.Application.Interface.API.IUserUseCase;
 import com.example.jeff.cajavademo.Domain.UserDTO;
 
 import an.awesome.pipelinr.Pipeline;
+import an.awesome.pipelinr.Voidy;
 
 public class UserUseCase implements IUserUseCase {
     @Autowired
     protected Pipeline pipeline;
 
     @Override
-    public void createUser(UserDTO user) {
+    public Voidy createUser(UserDTO user) {
         var createUserCommand = new CreateUserCommand(user);
 
-        pipeline.send(createUserCommand);
+        return pipeline.send(createUserCommand);
     }
 
     @Override
-    public void updateUser(String id, UserDTO user) {
-        // TODO Auto-generated method stub
+    public Voidy updateUser(UserDTO user) {
+        var UpdateUserCommand = new UpdateUserCommand(user);
 
+        return pipeline.send(UpdateUserCommand);
     }
 
     @Override
-    public void deleteUser(String id) {
-        // TODO Auto-generated method stub
+    public Voidy deleteUser(String id) {
+        var deleteUseCommand = new DeleteUserCommand(id);
 
-    }
-
-    @Override
-    public Optional<UserDTO> getUser(String id) {
-        // TODO Auto-generated method stub
-        return Optional.empty();
+        return pipeline.send(deleteUseCommand);
     }
 
     @Override
@@ -48,5 +48,12 @@ public class UserUseCase implements IUserUseCase {
         var getAllUsersQuery = new GetAllUsersQuery();
 
         return pipeline.send(getAllUsersQuery);
+    }
+
+    @Override
+    public UserDTO getUserById(String id) {
+        var getUserQuery = new GetUserByIdQuery(id);
+
+        return pipeline.send(getUserQuery);
     }
 }

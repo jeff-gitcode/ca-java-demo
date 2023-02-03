@@ -1,0 +1,46 @@
+@host = http://localhost:8080/api/users
+
+# @name createUser
+PUT {{host}}/createUser HTTP/1.1
+content-type: application/json
+
+{
+   "id":"111",
+   "firstName":"John",
+   "lastName":"Doe",
+   "email":"joh.doe@email.com",
+   "password":"1234"
+}
+
+### GET ALL USERS
+
+@commentId = {{createUser.response.body.id}}
+
+# @name GetUsers
+GET {{host}}/getAllUsers HTTP/1.1
+Authorization: Bearer {{token}}
+content-type: application/json
+
+### GET USER BY ID
+# @name GetUserById
+GET {{host}}/getUserById/{{commentId}} HTTP/1.1
+content-type: application/json
+
+### UPDATE USER
+# @name UpdateUser
+PUT {{host}} HTTP/1.1
+content-type: application/json
+
+{
+    "id": "{{commentId}}",
+    "email": "test@test.com",
+    "password": "1234",
+    "firstName": "John update",
+    "lastName": "Doe"
+}
+
+### DELETE USER
+# @name DeleteUser
+DELETE {{host}}/{{commentId}} HTTP/1.1
+content-type: application/json
+
