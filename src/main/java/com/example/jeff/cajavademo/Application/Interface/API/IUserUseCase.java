@@ -8,7 +8,7 @@ import com.example.jeff.cajavademo.Domain.UserDTO;
 import an.awesome.pipelinr.Voidy;
 
 public interface IUserUseCase {
-    public Voidy createUser(UserDTO user);
+    public UserDTO createUser(UserDTO user);
 
     public List<UserDTO> getAllUsers();
 

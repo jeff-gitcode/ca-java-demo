@@ -4,28 +4,34 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.example.jeff.cajavademo.Application.Interface.SPI.IUserRepository;
+import com.example.jeff.cajavademo.Domain.User;
 import com.example.jeff.cajavademo.Domain.UserDTO;
 
 import an.awesome.pipelinr.Voidy;
 
 @Repository
 public class UserRepository implements IUserRepository {
-    private List<UserDTO> users = new ArrayList<UserDTO>();
+
+    private List<UserDTO> users = new ArrayList<>() {
+        {
+            add(new UserDTO("1", "Jeff", "Doe", "abc", "123"));
+        }
+    };
 
     @Override
-    public Voidy createUser(UserDTO user) {
+    public UserDTO createUser(UserDTO user) {
         users.add(user);
-
-        return new Voidy();
+        return user;
     }
 
     @Override
     public List<UserDTO> getAllUsers() {
-        users = Collections.singletonList(new UserDTO("1", "Jeff", "Doe", "abc", "123"));
         return users;
     }
 

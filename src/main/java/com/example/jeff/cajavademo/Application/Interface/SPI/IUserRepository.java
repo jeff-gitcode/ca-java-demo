@@ -7,7 +7,7 @@ import com.example.jeff.cajavademo.Domain.UserDTO;
 import an.awesome.pipelinr.Voidy;
 
 public interface IUserRepository {
-    public Voidy createUser(UserDTO user);
+    public UserDTO createUser(UserDTO user);
 
     public List<UserDTO> getAllUsers();
 

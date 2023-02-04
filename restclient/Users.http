@@ -1,11 +1,11 @@
 @host = http://localhost:8080/api/users
 
 # @name createUser
-PUT {{host}}/createUser HTTP/1.1
+POST {{host}}/createUser HTTP/1.1
 content-type: application/json
 
 {
-   "id":"111",
+   "id":"11",
    "firstName":"John",
    "lastName":"Doe",
    "email":"joh.doe@email.com",

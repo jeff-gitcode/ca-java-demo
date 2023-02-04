@@ -23,7 +23,7 @@ public class UserUseCase implements IUserUseCase {
     protected Pipeline pipeline;
 
     @Override
-    public Voidy createUser(UserDTO user) {
+    public UserDTO createUser(UserDTO user) {
         var createUserCommand = new CreateUserCommand(user);
 
         return pipeline.send(createUserCommand);
