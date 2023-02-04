@@ -1,5 +1,8 @@
 package com.example.jeff.cajavademo.Infrastructure.Persistence;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +22,8 @@ import an.awesome.pipelinr.Voidy;
 @Repository
 public class UserRepository implements IUserRepository {
 
+    private Logger logger = LoggerFactory.getLogger(UserRepository.class);
+
     // @Autowired
     // private BaseUserRepository baseUserRepository;
 
@@ -30,6 +35,8 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public UserDTO createUser(UserDTO user) {
+        logger.info("Creating user: " + user.toString());
+
         var uuid = UUID.randomUUID();
         user.setId(uuid.toString());
 
@@ -40,17 +47,23 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public List<UserDTO> getAllUsers() {
+        logger.info("Getting all users");
+
         return users;
     }
 
     @Override
     public UserDTO getUserById(String id) {
+        logger.info("Getting user by id: " + id);
+
         var user = users.stream().filter(u -> u.getId().equals(id)).findFirst();
         return user.orElse(null);
     }
 
     @Override
     public UserDTO updateUser(UserDTO userDTO) {
+        logger.info("Updating user: " + userDTO.toString());
+
         users.stream().filter(u -> u.getId().equals(userDTO.getId())).findFirst()
                 .ifPresent(u -> {
                     u.setFirstName(userDTO.getFirstName());
@@ -65,6 +78,8 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public Voidy deleteUser(String id) {
+        logger.info("Deleting user by id: " + id);
+
         users.removeIf(u -> u.getId().equals(id));
         return new Voidy();
     }
