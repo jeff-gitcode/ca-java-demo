@@ -3,6 +3,7 @@ package com.example.jeff.cajavademo.Infrastructure.Persistence;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
@@ -18,15 +19,22 @@ import an.awesome.pipelinr.Voidy;
 @Repository
 public class UserRepository implements IUserRepository {
 
+    // @Autowired
+    // private BaseUserRepository baseUserRepository;
+
     private List<UserDTO> users = new ArrayList<>() {
         {
-            add(new UserDTO("1", "Jeff", "Doe", "abc", "123"));
+            add(new UserDTO("1", "John", "Doe", "john@doe.com", "123"));
         }
     };
 
     @Override
     public UserDTO createUser(UserDTO user) {
+        var uuid = UUID.randomUUID();
+        user.setId(uuid.toString());
+
         users.add(user);
+
         return user;
     }
 
@@ -42,10 +50,17 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public Voidy updateUser(UserDTO user) {
-        users.stream().filter(u -> u.getId().equals(user.getId())).findFirst()
-                .ifPresent(u -> u = user);
-        return new Voidy();
+    public UserDTO updateUser(UserDTO userDTO) {
+        users.stream().filter(u -> u.getId().equals(userDTO.getId())).findFirst()
+                .ifPresent(u -> {
+                    u.setFirstName(userDTO.getFirstName());
+                    u.setLastName(userDTO.getLastName());
+                    u.setEmail(userDTO.getEmail());
+                    u.setPassword(userDTO.getPassword());
+                });
+
+        var user = users.stream().filter(u -> u.getId().equals(userDTO.getId())).findFirst();
+        return user.orElse(null);
     }
 
     @Override

@@ -30,7 +30,7 @@ public class UserUseCase implements IUserUseCase {
     }
 
     @Override
-    public Voidy updateUser(UserDTO user) {
+    public UserDTO updateUser(UserDTO user) {
         var UpdateUserCommand = new UpdateUserCommand(user);
 
         return pipeline.send(UpdateUserCommand);

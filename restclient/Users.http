@@ -28,7 +28,7 @@ content-type: application/json
 
 ### UPDATE USER
 # @name UpdateUser
-PUT {{host}} HTTP/1.1
+PUT {{host}}/updateUser HTTP/1.1
 content-type: application/json
 
 {
@@ -41,6 +41,6 @@ content-type: application/json
 
 ### DELETE USER
 # @name DeleteUser
-DELETE {{host}}/{{commentId}} HTTP/1.1
+DELETE {{host}}/deleteUser/{{commentId}} HTTP/1.1
 content-type: application/json
 

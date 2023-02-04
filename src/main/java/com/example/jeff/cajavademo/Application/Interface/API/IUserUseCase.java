@@ -14,7 +14,7 @@ public interface IUserUseCase {
 
     public UserDTO getUserById(String id);
 
-    public Voidy updateUser(UserDTO user);
+    public UserDTO updateUser(UserDTO user);
 
     public Voidy deleteUser(String id);
 

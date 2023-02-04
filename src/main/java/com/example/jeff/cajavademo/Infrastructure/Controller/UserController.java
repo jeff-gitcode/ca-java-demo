@@ -42,10 +42,10 @@ public class UserController {
     }
 
     @PutMapping("/updateUser")
-    public ResponseEntity<Void> updateUser(@RequestBody UserDTO user) {
-        userUseCase.updateUser(user);
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO user) {
+        var result = userUseCase.updateUser(user);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(result);
     }
 
     @DeleteMapping("/deleteUser/{id}")
