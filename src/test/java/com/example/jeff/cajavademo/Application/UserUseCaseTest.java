@@ -10,6 +10,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.jeff.cajavademo.Domain.UserDTO;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserUseCaseTest {
@@ -25,6 +28,31 @@ public class UserUseCaseTest {
         assertEquals(user, result);
     }
 
-    
-        
+    @Test
+    public void should_return_when_getUser() {
+        var result = userUseCase.createUser(user);
+
+        var actual = userUseCase.getUserById(user.getId());
+
+        assertEquals(user, actual);
+    }
+
+    @Test
+    public void should_return_when_getAllUsers() {
+
+        var actual = userUseCase.getAllUsers();
+
+        assertThat(actual.size(), greaterThan(0));
+    }
+
+    @Test
+    public void should_return_when_updateUser() {
+        var updatedUser = user;
+
+        updatedUser.setFirstName("Jane");
+
+        var actual = userUseCase.updateUser(updatedUser);
+
+        assertEquals(updatedUser, actual);
+    }
 }

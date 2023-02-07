@@ -14,7 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Collections;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -22,36 +27,50 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class UserRepositoryTest {
     private UserDTO user = new UserDTO("1", "John", "Doe", "john@doe.com", "123");
-
+    private UserDTO result;
     @Autowired
     private UserRepository userRepository;
 
+    @BeforeEach
+    public void setup() {
+    }
+
+    @Test
+    @Order(1)
+    public void should_return_when_getAllUsers() {
+        var actual = userRepository.getAllUsers();
+
+        assertThat(actual.size(), greaterThan(0));
+    }
+
     @Test
     public void should_return_when_createUser() {
-        var result = userRepository.createUser(user);
+        result = userRepository.createUser(user);
 
         assertEquals(user, result);
     }
 
     @Test
     public void should_return_when_getUser() {
-        var result = userRepository.getUserById(user.getId());
+        result = userRepository.createUser(user);
 
-        assertEquals(user, result);
+        var actual = userRepository.getUserById(user.getId());
+
+        assertEquals(user, actual);
     }
 
     @Test
     public void should_return_when_updateUser() {
-        var result = userRepository.updateUser(user);
+        var actual = userRepository.updateUser(user);
 
-        assertEquals(user, result);
+        assertEquals(user, actual);
     }
 
     @Test
     public void should_return_when_deleteUser() {
-        var result = userRepository.deleteUser(user.getId());
+        var actual = userRepository.deleteUser(user.getId());
 
-        assertEquals(new Voidy(), result);
+        assertEquals(new Voidy(), actual);
     }
 
 }

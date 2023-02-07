@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import com.example.jeff.cajavademo.Application.Interface.SPI.IUserRepository;
 import com.example.jeff.cajavademo.Domain.UserDTO;
 import an.awesome.pipelinr.Command;
-import lombok.var;
 
 // @AllArgsConstructor
 @Component
@@ -16,9 +15,7 @@ public class CreateUserCommandHandler implements Command.Handler<CreateUserComma
 
     @Override
     public UserDTO handle(CreateUserCommand command) {
-        var user = command.user();
-
-        return userRepository.createUser(user);
+        return userRepository.createUser(command.user());
 
     }
 }
